@@ -19,6 +19,8 @@
  * Includes
  *******************************************************************************/
 #include <stdio.h>	
+#include "types.h"
+#include "input.h"
 
 /******************************************************************************
 * Module Preprocessor Constants
@@ -49,7 +51,7 @@
 /******************************************************************************
 * Function : main()
 *//**
-*	Parameters:
+*	This function is used to control the flow of the whole program.
 *	Param[in]: 
 *     argc [Int32]
 *     argv [Int8]
@@ -65,5 +67,17 @@
 
 int main(int argc, char** argv)
 {
-	
+	SInt8 file_name[FILE_MAX_LEN];
+	SInt8 word[WORD_MAX_LEN];
+	if (argc == 2)
+	{
+		strcpy(file_name, argv[1]);
+		read_input(word, file_name);
+		// printf("%s", word);
+	}
+	else
+	{
+		printf("Wrong parameters from command line.");
+		exit(1);
+	}
 }

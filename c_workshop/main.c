@@ -71,9 +71,11 @@ int main(int argc, char** argv)
 	SInt8 word[WORD_MAX_LEN];
 	if (argc == 2)
 	{
-		strcpy(file_name, argv[1]);
-		read_input(word, file_name);
-		// printf("%s", word);
+		/*strcpy(file_name, argv[1]);*/
+		/*read_input(word, file_name);
+	    printf("%s", word);*/
+		init(argv[1]);
+		switchState();
 	}
 	else
 	{

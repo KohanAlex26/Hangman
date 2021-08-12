@@ -18,5 +18,22 @@
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="input.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="State.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="input.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="types.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

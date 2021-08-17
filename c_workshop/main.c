@@ -21,6 +21,7 @@
 #include <stdio.h>	
 #include "types.h"
 #include "input.h"
+#include "State.h"
 
 /******************************************************************************
 * Module Preprocessor Constants
@@ -44,6 +45,8 @@
 /******************************************************************************
 * Function Prototypes
 *******************************************************************************/
+extern void init(SInt8* fileName);
+extern void switchState();
 
 /******************************************************************************
 * Function Definitions
@@ -71,8 +74,8 @@ int main(int argc, char** argv)
 	SInt8 word[WORD_MAX_LEN];
 	if (argc == 2)
 	{
-		/*strcpy(file_name, argv[1]);*/
-		/*read_input(word, file_name);
+		/*strcpy(file_name, argv[1]);
+		read_input(word, file_name);
 	    printf("%s", word);*/
 		init(argv[1]);
 		switchState();

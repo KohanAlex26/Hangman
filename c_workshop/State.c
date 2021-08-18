@@ -53,6 +53,7 @@ static SInt8 word[WORD_MAX_LEN];
 static SInt8 continueGame;
 static Boolean ok;
 static SInt8 buff;
+
 /******************************************************************************
 * Function Definitions
 *******************************************************************************/
@@ -68,7 +69,7 @@ void initVariables()
 	lives = 6;
 	//memset sau for
 	/*currentWord[WORD_MAX_LEN] = "";*/
-	memset(currentWord, '\0', sizeof(currentWord));
+	memset(currentWord, '_', sizeof(currentWord));
 	character = '\0';
 	ok = 0;
 }
@@ -114,6 +115,52 @@ Boolean isInWord(SInt8 c)
 	}
 	return 0;
 }
+void completeCurrentWord(SInt8 c)
+{
+	int i = 0;
+	while (word[i] != '\n')
+	{
+		if (word[i] == c)
+			currentWord[i] = c;
+		i++;
+	}
+}
+
+void displayCurrentWord()
+{
+	int i = 0;
+	int c = 0;
+	int j = 0;
+	while (word[i] != '\n')
+	{
+		i++;
+		c++;
+	}
+	printf("%s", "Current word: ");
+	for (j = 0; j < c; j++)
+		printf("%c%c", currentWord[j],' ');
+	printf("\n\n");
+}
+Boolean guessedAllLetters()
+{
+
+	int i = 0;
+	int c = 0;
+	int j = 0;
+	Boolean ok = 1;
+	while (word[i] != '\n')
+	{
+		i++;
+		c++;
+	}
+	for (j = 0; j < c; j++)
+		if (currentWord[j] == '_')
+		{
+			return 0;
+			printf("%c", currentWord[j]);
+		}
+	return 1;
+}
 
 void switchState()
 {
@@ -122,9 +169,13 @@ void switchState()
 		switch (state)
 		{
 		case INIT:
+			read_input(word, file_name);
+			printf("%s", word);
 			initVariables();
 			state = INPUT;
 		case INPUT:
+			printf("%s%d%s\n","You have ", lives," lives");
+			displayCurrentWord();
 			printf("%s","Write a character that you think appears in the word: ");
 			scanf("%c", &character);
 			scanf("%c", &buff);
@@ -147,6 +198,10 @@ void switchState()
 				addUsedLetters(character);
 				if (isInWord(character) == 0)
 					lives = lives - 1;
+				else
+				{
+					completeCurrentWord(character);
+				}
 			/*	if (isInWord(character) == 1)
 				{
 					pass();
@@ -160,11 +215,38 @@ void switchState()
 			printf("%s", word);*/
 			state = DISPLAY;
 		case DISPLAY:
-			printf("%s", lives);
 			state = FINAL;
 		case FINAL:
-			if (lives == 0)
+			if (guessedAllLetters()==1)
 			{
+				printf("You won!\n");
+				ok = 0;
+				printf("%s", "Do you want to start a new game? (Y/N): ");
+				while (ok == 0)
+				{
+					scanf("%c", &continueGame);
+					scanf("%c", &buff);
+					if (continueGame == 'Y')
+					{
+						ok = 1;
+						state = INIT;
+						system("cls");
+					}
+					else if (continueGame == 'N')
+					{
+						ok = 1;
+						return;
+						printf("%s", "a");
+					}
+					else
+					{
+						printf("Write Y/N: ");
+					}
+				}
+			}
+			else if (lives == 0)
+			{
+				ok = 0;
 				printf("%s", "Do you want to start a new game? (Y/N): ");
 				while (ok == 0)
 				{

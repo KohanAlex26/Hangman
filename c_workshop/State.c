@@ -53,6 +53,7 @@ static SInt8 word[WORD_MAX_LEN];
 static SInt8 continueGame;
 static Boolean ok;
 static SInt8 buff;
+static SInt8 body[100];
 
 /******************************************************************************
 * Function Definitions
@@ -65,20 +66,12 @@ void init(SInt8 *fileName)
 void initVariables()
 {
 	memset(usedLetters, '\0', sizeof(usedLetters));
-	/*usedLetters[ALPHABET_SIZE] = "";*/
 	lives = 6;
-	//memset sau for
-	/*currentWord[WORD_MAX_LEN] = "";*/
 	memset(currentWord, '_', sizeof(currentWord));
 	character = '\0';
 	ok = 0;
+	memset(body, '\0', sizeof(body));
 }
-//Boolean isChar(SInt8 *c)
-//{
-//	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c<='Z'));
-//	return 1;
-//	return 0;
-//}
 
 Boolean inUsedLetters(SInt8 c)
 {
@@ -89,7 +82,7 @@ Boolean inUsedLetters(SInt8 c)
 			return 1;
 		i++;
 	}
-	usedLetters[i] = c;
+	//usedLetters[i] = c;
 	return 0;
 }
 
@@ -162,6 +155,41 @@ Boolean guessedAllLetters()
 	return 1;
 }
 
+void printBody(int mistakes) {
+	switch (mistakes) {
+
+	case 6: body[6] = '\\'; break;
+	case 5: body[5] = '/'; break;
+	case 4: body[4] = '\\'; break;
+	case 3: body[3] = '/'; break;
+	case 2: body[2] = '|'; break;
+	case 1: body[1] = ')', body[0] = '('; break;
+	default: break;
+
+	}
+
+	printf("\t _________\n"
+		"\t|         |\n"
+		"\t|        %c %c\n"
+		"\t|        %c%c%c\n"
+		"\t|        %c %c\n"
+		"\t|             \n"
+		"\t|             \n\n\n", body[0], body[1], body[3],
+		body[2], body[4], body[5], body[6]);
+}
+
+void displayUsedLetters()
+{
+	int i = 0;
+	printf("%s", "Used letters: ");
+	while (usedLetters[i] != '\0')
+	{
+		printf("%c", usedLetters[i]);
+		i++;
+	}
+	printf("\n");
+}
+
 void switchState()
 {
 	while (1)
@@ -170,13 +198,15 @@ void switchState()
 		{
 		case INIT:
 			read_input(word, file_name);
-			printf("%s", word);
+			printf("%s%s", "Guess this word: ",word);
 			initVariables();
+			printBody(6 - lives);
 			state = INPUT;
 		case INPUT:
-			printf("%s%d%s\n","You have ", lives," lives");
+			printf("%s%d\n","Lives: ", lives);
 			displayCurrentWord();
-			printf("%s","Write a character that you think appears in the word: ");
+			displayUsedLetters();
+			printf("%s","Guess a letter: ");
 			scanf("%c", &character);
 			scanf("%c", &buff);
 			state = PROCESS;
@@ -202,19 +232,11 @@ void switchState()
 				{
 					completeCurrentWord(character);
 				}
-			/*	if (isInWord(character) == 1)
-				{
-					pass();
-				}
-				else
-				{
-					lives = lives - 1;
-				}*/
 			}
-		/*	read_input(word, file_name);
-			printf("%s", word);*/
 			state = DISPLAY;
 		case DISPLAY:
+			system("cls");
+			printBody(6-lives);
 			state = FINAL;
 		case FINAL:
 			if (guessedAllLetters()==1)

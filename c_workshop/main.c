@@ -41,6 +41,8 @@
 /******************************************************************************
 * Module Variable Definitions
 *******************************************************************************/
+UInt8 file_name[FILE_MAX_LEN];
+SInt8 word[WORD_MAX_LEN];
 
 /******************************************************************************
 * Function Prototypes
@@ -70,13 +72,21 @@ extern void switchState();
 
 int main(int argc, char** argv)
 {
-	SInt8 file_name[FILE_MAX_LEN];
-	SInt8 word[WORD_MAX_LEN];
 	if (argc == 2)
 	{
 		/*strcpy(file_name, argv[1]);
 		read_input(word, file_name);
 	    printf("%s", word);*/
+	/*	printf("\t\t\t88\n"
+			"\t\t\t88\n"
+			"\t\t\t88\n"
+			"\t\t\t88,dPPYba,  ,adPPYYba, 8b,dPPYba,   ,adPPYb,d8 88,dPYba,,adPYba,  ,adPPYYba, 8b,dPPYba,\n"
+			"\t\t\t88P'    \"8a \"\"     `Y8 88P'   `\"8a a8\"    `Y88 88P\'   \"88\"    \"8a \"\"     \`Y8 88P'   `\"8a\n"
+			"\t\t\t88       88 ,adPPPPP88 88       88 8b       88 88      88      88 ,adPPPPP88 88       88\n"
+			"\t\t\t88       88 88,   , 88 88       88 \"8a,   ,d88 88      88      88 88,    ,88 88       88\n"
+			"\t\t\t88       88 `\"8bbdP\"Y8 88       88  `\"YbbdP\"Y8 88      88      88 `\"8bbdP\"Y8 88       88\n"
+			"\t\t\t                                    aa,   , 88\n"
+			"\t\t\t                                     \"Y8bbdP\"\n");*/
 		init(argv[1]);
 		switchState();
 	}

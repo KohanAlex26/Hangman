@@ -281,21 +281,80 @@ void finishCurrentWord()
 *  18/08/2021    1.0.0            OW      Module Created
 *
 *******************************************************************************/
-void printCurrentWord()
+//void printCurrentWord2()
+//{
+//
+//	int i = 0;
+//	int j = 0;
+//	while (word[i] != '\n')
+//	{
+//		i++;
+//	}
+//	printf("%s", "\t\t\tCurrent word: ");
+//	for (j = 0; j < i; j++)
+//		printf("%c%c", currentWord[j],' ');
+//	printf("\n");
+//}
+
+UInt8* printCurrentWord()
 {
+	UInt8 testStr[100]="";
 	int i = 0;
-	int c = 0;
-	int j = 0;
 	while (word[i] != '\n')
 	{
+		testStr[2 * i] = currentWord[i];
+		testStr[2 * i + 1] = ' ';
 		i++;
-		c++;
 	}
-	printf("%s", "Current word: ");
-	for (j = 0; j < c; j++)
-		printf("%c%c", currentWord[j],' ');
-	printf("\n");
+	//for (int j = 0; j < i; j++)
+	//{
+	//	testStr[2 * j] = currentWord[j];
+	//	testStr[2 * j + 1] = ' ';
+	//}
+	/*printf("\n");*/
+	return testStr;
 }
+
+/******************************************************************************
+* Function : printUsedLetters
+*//**
+*	This function is used to display our used letters
+*	Param[in]:
+*	  none
+*  Param[out]:
+*     none
+*
+*  ----------------------
+*  - HISTORY OF CHANGES -
+*  ----------------------
+*    Date    Software Version    Initials   Description
+*  18/08/2021    1.0.0            OW      Module Created
+*
+*******************************************************************************/
+UInt8* printUsedLetters()
+{
+	UInt8 testStr[100] = "";
+	int i = 0;
+	while (usedLetters[i] != '\0')
+	{
+		testStr[i] = usedLetters[i];
+		i++;
+	}
+	return testStr;
+}
+
+//void printUsedLetters2()
+//{
+//	int i = 0;
+//	printf("%s", "\t\t\tUsed letters: ");
+//	while (usedLetters[i] != '\0')
+//	{
+//		printf("%c ", usedLetters[i]);
+//		i++;
+//	}
+//	printf("\n\n\n");
+//}
+
 
 /******************************************************************************
 * Function : guessedAllLetters
@@ -352,6 +411,30 @@ Boolean guessedAllLetters()
 *  18/08/2021    1.0.0            OW      Module Created
 *
 *******************************************************************************/
+//void printBody() {
+//	UInt16 mistakes = 6 - lives;
+//	switch (mistakes) {
+//
+//	case 6: body[6] = '\\'; break;
+//	case 5: body[5] = '/'; break;
+//	case 4: body[4] = '\\'; break;
+//	case 3: body[3] = '/'; break;
+//	case 2: body[2] = '|'; break;
+//	case 1: body[1] = ')', body[0] = '('; break;
+//	default: break;
+//
+//	}
+//
+//	printf("\t\t\t _________\n"
+//		"\t\t\t|         |\n"
+//		"\t\t\t|        %c %c\n"
+//		"\t\t\t|        %c%c%c\n"
+//		"\t\t\t|        %c %c\n"
+//		"\t\t\t|             \n"
+//		"\t\t\t|             \n\n\n", body[0], body[1], body[3],
+//		body[2], body[4], body[5], body[6]);
+//}
+
 void printBody() {
 	UInt16 mistakes = 6 - lives;
 	switch (mistakes) {
@@ -365,17 +448,37 @@ void printBody() {
 	default: break;
 
 	}
-
-	printf("\t _________\n"
-		"\t|         |\n"
-		"\t|        %c %c\n"
-		"\t|        %c%c%c\n"
-		"\t|        %c %c\n"
-		"\t|             \n"
-		"\t|             \n\n\n", body[0], body[1], body[3],
-		body[2], body[4], body[5], body[6]);
+	UInt8 s[100]="";
+	strcpy(s,printCurrentWord());
+	UInt8 s2[100]="";
+	strcpy(s2, printUsedLetters());
+	printf("\t\t\t _________\n"
+		"\t\t\t|         |\n"
+		"\t\t\t|        %c %c\n"
+		"\t\t\t|        %c%c%c\n"
+		"\t\t\t|        %c %c\t\t\t\t\t\t\tLives: %d\n"
+		"\t\t\t|             \t\t\t\t\t\t\tCurrent word: %s\n"
+		"\t\t\t|             \t\t\t\t\t\t\tUsed letters: %s\n\n\n\n\n", body[0], body[1], body[3],
+		body[2], body[4], body[5], body[6],lives,s,s2);
 }
 
+
+/******************************************************************************
+* Function : printHangman
+*//**
+*	This function is used to display the hangman title in big ascii
+*	Param[in]:
+*	  none
+*  Param[out]:
+*     none
+*
+*  ----------------------
+*  - HISTORY OF CHANGES -
+*  ----------------------
+*    Date    Software Version    Initials   Description
+*  18/08/2021    1.0.0            OW      Module Created
+*
+*******************************************************************************/
 void printHangman()
 {
 	printf("\t\t\t88\n"
@@ -387,7 +490,7 @@ void printHangman()
 		"\t\t\t88       88 88,   , 88 88       88 \"8a,   ,d88 88      88      88 88,    ,88 88       88\n"
 		"\t\t\t88       88 `\"8bbdP\"Y8 88       88  `\"YbbdP\"Y8 88      88      88 `\"8bbdP\"Y8 88       88\n"
 		"\t\t\t                                    aa,   , 88\n"
-		"\t\t\t                                     \"Y8bbdP\"\n\n\n");
+		"\t\t\t                                     \"Y8bbdP\"\n\n\n\n\n\n\n");
 }
 void printEntireBody() {
 	body[6] = '\\';
@@ -410,59 +513,7 @@ void printEntireBody() {
 
 
 
-//void printBody2() {
-//	UInt16 mistakes = 6 - lives;
-//	switch (mistakes) {
-//
-//	case 6: body[6] = '\\'; break;
-//	case 5: body[5] = '/'; break;
-//	case 4: body[4] = '\\'; break;
-//	case 3: body[3] = '/'; break;
-//	case 2: body[2] = '|'; break;
-//	case 1: body[1] = ')', body[0] = '('; break;
-//	default: break;
-//
-//	}
-//
-//	printf("\t ______________________\n"
-//		   "\t|___________________|  |\n"
-//		   "\t|___________________|  |\n"
-//		   "\t|  |  |  |  |\n"
-//		   "\t|  |  |  |  |       %c %c\n"
-//		   "\t|  |  |  |  |        %c%c%c\n"
-//		   "\t|  |  |  |  |        %c %c\n"
-//		   "\t|  |  |  |  |             \n"
-//		   "\t|  |  |  |  |             \n\n\n", body[0], body[1], body[3],
-//		body[2], body[4], body[5], body[6]);
-//}
 
-/******************************************************************************
-* Function : printUsedLetters
-*//**
-*	This function is used to display our used letters
-*	Param[in]:
-*	  none
-*  Param[out]:
-*     none
-*
-*  ----------------------
-*  - HISTORY OF CHANGES -
-*  ----------------------
-*    Date    Software Version    Initials   Description
-*  18/08/2021    1.0.0            OW      Module Created
-*
-*******************************************************************************/
-void printUsedLetters()
-{
-	int i = 0;
-	printf("%s", "Used letters: ");
-	while (usedLetters[i] != '\0')
-	{
-		printf("%c ", usedLetters[i]);
-		i++;
-	}
-	printf("\n\n\n");
-}
 /******************************************************************************
 * Function : readFromFileAndPrint
 *//**
@@ -503,7 +554,7 @@ void readFromFileAndPrint()
 *******************************************************************************/
 void printNumberOfLives()
 {
-	printf("%s%d\n", "Lives: ", lives);
+	printf("\t\t\t%s%d\n", "Lives: ", lives);
 }
 /******************************************************************************
 * Function : areStringsEqual
@@ -619,7 +670,7 @@ void toLower()
 *******************************************************************************/
 void readFromUser()
 {
-	printf("%s", "Guess a letter: ");
+	printf("%s", "\t\t\tGuess a letter: ");
 	scanf("%s", &str);
 	//if (lenOfString(str) == 1)
 	//{
@@ -649,6 +700,38 @@ void readFromUser()
 	scanf("%c", &buff);*/
 }
 
+
+//void readFromUser()
+//{
+//	printf("%s", "Guess a letter: ");
+//	scanf("%s", &str);
+//	//if (lenOfString(str) == 1)
+//	//{
+//	//	character = str[0];
+//	//	toLower(character);
+//	//	return 1;
+//	//}
+//	//else
+//	//{
+//	//	//if (hasInvalidChars(str) == 1)
+//	//	//{
+//	//	//	/////TO DO
+//	//	//	printf("a");
+//	//	//}
+//	//	//else if (areStringsEqual() == 1)
+//	//	//	finishCurrentWord();
+//	//	//else
+//	//	//{
+//	//	//	lives = 0;
+//	//	//	entireWord = 0;
+//	//	//}
+//	//	return 0;
+//	//}
+//
+//	/*printf("%d", lenOfString(s));*/
+//	/*scanf("%c", &character);
+//	scanf("%c", &buff);*/
+//}
 
 /******************************************************************************
 * Function : lenOfString
@@ -693,7 +776,7 @@ int lenOfString(UInt8 *s)
 *******************************************************************************/
 void printNotAChar(UInt8 c)
 {
-		printf("%s%c%s%s", "'", c, "'", " is Not a character!\n");
+		printf("\t\t\t%s%c%s%s", "'", c, "'", " is Not a character!\n");
 }
 
 /******************************************************************************
@@ -714,7 +797,7 @@ void printNotAChar(UInt8 c)
 *******************************************************************************/
 void printInUsedLetters(UInt8 c)
 {
-	printf("%c%s", c, " is already used!\n");
+	printf("\t\t\t%c%s", c, " is already used!\n");
 }
 
 /******************************************************************************
@@ -735,7 +818,7 @@ void printInUsedLetters(UInt8 c)
 *******************************************************************************/
 void startOrEnd()
 {
-	printf("%s", "Do you want to start a new game? (Y/N): ");
+	printf("%s", "\t\t\tDo you want to start a new game? (Y/N): ");
 	ok = 0;
 	while (ok == 0)
 	{
@@ -860,10 +943,17 @@ void printEverything()
 	printf("%s%s\n\n", "Guess this word: ", word);
 	printHangman();
 	printBody();
-	printNumberOfLives();
-	printCurrentWord();
-	printUsedLetters();
 }
+
+//void printEverything2()
+//{
+//	printf("%s%s\n\n", "Guess this word: ", word);
+//	printHangman();
+//	printBody();
+//	printNumberOfLives();
+//	printCurrentWord();
+//	printUsedLetters();
+//}
 
 /******************************************************************************
 * Function : isCharacter
@@ -1014,7 +1104,7 @@ void switchState()
 				{
 					system("cls");
 					printEverything();
-					printf("You got an invalid character in your text\n");
+					printf("\t\t\tYou got an invalid character in your text\n");
 					gotInvalidChars = 0;
 				}
 				else
@@ -1053,7 +1143,7 @@ void switchState()
 		case FINAL:
 			if (guessedAllLetters()==1)
 			{
-				printf("You won!\n");
+				printf("\t\t\tYou won!\n");
 				startOrEnd();
 			}
 			else if (dead() == 1)

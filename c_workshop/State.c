@@ -49,7 +49,7 @@ static UInt8 currentWord[WORD_MAX_LEN];
 static UInt8 character;
 static UInt8 str[WORD_MAX_LEN];
 static State_en state;
-static UInt8 file_name[100];
+static UInt8 file_name[20];
 static UInt8 word[WORD_MAX_LEN];
 //static UInt8 continueGame;
 static Boolean ok;
@@ -137,7 +137,7 @@ void initVariables()
 *******************************************************************************/
 Boolean inUsedLetters(UInt8 c)
 {
-	int i = 0;
+	SInt16 i = 0;
 	while (usedLetters[i] != '\0')
 	{
 		if (usedLetters[i] == c)
@@ -167,9 +167,9 @@ Boolean inUsedLetters(UInt8 c)
 
 void addToUsedLetters(UInt8 c)
 {
-	int i = 0;
-	int j;
-	int lenUsedLetters = lenOfString(usedLetters);
+	SInt16 i = 0;
+	SInt16 j;
+	SInt16 lenUsedLetters = lenOfString(usedLetters);
 	while (usedLetters[i] != '\0' && c>usedLetters[i])
 	{
 		i++;
@@ -202,7 +202,7 @@ void addToUsedLetters(UInt8 c)
 Boolean isInWord(UInt8 c) 
 {
 	Boolean ok = 0;
-	int i = 0;
+	SInt16 i = 0;
 	while (word[i] != '\0' && ok==0)
 	{
 		if (word[i] == c)
@@ -230,7 +230,7 @@ Boolean isInWord(UInt8 c)
 *******************************************************************************/
 void completeCurrentWord(UInt8 c)
 {
-	int i = 0;
+	SInt16 i = 0;
 	while (word[i] != '\n')
 	{
 		if (word[i] == c)
@@ -257,7 +257,7 @@ void completeCurrentWord(UInt8 c)
 *******************************************************************************/
 void finishCurrentWord()
 {
-	int i = 0;
+	SInt16 i = 0;
 	while (word[i] != '\n')
 	{
 			currentWord[i] = word[i];
@@ -299,7 +299,7 @@ void finishCurrentWord()
 UInt8* printCurrentWord()
 {
 	UInt8 testStr[100]="";
-	int i = 0;
+	SInt16 i = 0;
 	while (word[i] != '\n')
 	{
 		testStr[2 * i] = currentWord[i];
@@ -334,7 +334,7 @@ UInt8* printCurrentWord()
 UInt8* printUsedLetters()
 {
 	UInt8 testStr[100] = "";
-	int i = 0;
+	SInt16 i = 0;
 	while (usedLetters[i] != '\0')
 	{
 		testStr[i] = usedLetters[i];
@@ -377,9 +377,9 @@ UInt8* printUsedLetters()
 Boolean guessedAllLetters()
 {
 
-	int i = 0;
-	int c = 0;
-	int j = 0;
+	SInt16 i = 0;
+	SInt16 c = 0;
+	SInt16 j = 0;
 	Boolean ok = 1;
 	while (word[i] != '\n')
 	{
@@ -576,9 +576,9 @@ void printNumberOfLives()
 *******************************************************************************/
 Boolean areStringsEqual()
 {
-	int i = 0;
-	int lenStr = lenOfString(str);
-	int lenWord = lenOfString(word);
+	SInt16 i = 0;
+	SInt16 lenStr = lenOfString(str);
+	SInt16 lenWord = lenOfString(word);
 	if (lenStr > lenWord)
 	{
 		while (i < lenStr)
@@ -619,7 +619,7 @@ Boolean areStringsEqual()
 *******************************************************************************/
 Boolean hasInvalidChars(UInt8* s)
 {
-	int i = 0;
+	SInt16 i = 0;
 	while (s[i] != '\0' && s[i] != '\n')
 	{
 		if (isalpha(s[i]) == 0)
@@ -671,7 +671,7 @@ void toLower()
 void readFromUser()
 {
 	printf("%s", "\t\t\tGuess a letter: ");
-	scanf("%s", &str);
+	scanf("%s", str);
 	//if (lenOfString(str) == 1)
 	//{
 	//	character = str[0];
@@ -753,7 +753,7 @@ void readFromUser()
 *******************************************************************************/
 int lenOfString(UInt8 *s)
 {
-	int i = 0;
+	SInt16 i = 0;
 	while (s[i] != '\0' && s[i]!='\n')
 		i++;
 	return i;
@@ -983,8 +983,8 @@ Boolean isCharacter()
 	}
 	else
 	{ 
-		int lenStr = lenOfString(str);
-		for (int i = 0; i < lenStr; i++)
+		SInt16 lenStr = lenOfString(str);
+		for (SInt16 i = 0; i < lenStr; i++)
 			if (str[i] >= 'A' && str[i] <= 'Z')
 				str[i] = str[i] + 32;
 		return 0;

@@ -19,6 +19,9 @@
  * Includes
  *******************************************************************************/
 #include <stdio.h>	
+#include "types.h"
+#include "input.h"
+#include "State.h"
 
 /******************************************************************************
 * Module Preprocessor Constants
@@ -38,10 +41,14 @@
 /******************************************************************************
 * Module Variable Definitions
 *******************************************************************************/
+UInt8 file_name[FILE_MAX_LEN];
+SInt8 word[WORD_MAX_LEN];
 
 /******************************************************************************
 * Function Prototypes
 *******************************************************************************/
+extern void init(SInt8* fileName);
+extern void switchState();
 
 /******************************************************************************
 * Function Definitions
@@ -49,7 +56,7 @@
 /******************************************************************************
 * Function : main()
 *//**
-*	Parameters:
+*	This function is used to control the flow of the whole program.
 *	Param[in]: 
 *     argc [Int32]
 *     argv [Int8]
@@ -65,5 +72,17 @@
 
 int main(int argc, char** argv)
 {
-	
+	if (argc == 2)
+	{
+		/*strcpy(file_name, argv[1]);
+		read_input(word, file_name);
+	    printf("%s", word);*/
+		init(argv[1]);
+		switchState();
+	}
+	else
+	{
+		printf("Wrong parameters from command line.");
+		exit(1);
+	}
 }

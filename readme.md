@@ -1,3 +1,6 @@
+![](gifs/hangman.gif)
+
+
 # Basics of C workshop
   
 ```
@@ -18,5 +21,3 @@ Suggestion:
  - Do not use global variables, use interfaces
  - Make code/RAM optimizations
 ```
-
-![](gifs/hangman.gif)
